@@ -11,6 +11,18 @@ function generateYAML() {
     }
   });
 
+document.getElementById("copy-button").addEventListener("click", function () {
+  const yamlText = document.getElementById("yaml-output").textContent;
+  navigator.clipboard.writeText(yamlText)
+    .then(() => {
+      alert("YAML copied to clipboard!");
+    })
+    .catch(err => {
+      alert("Failed to copy: " + err);
+    });
+});
+
+  
 if (selected.length === 0) {
     alert("Please select at least one repository.");
     return;
@@ -35,7 +47,8 @@ if (!start || !end) {
   const yamlOutput = document.getElementById("yaml-output");
   yamlOutput.textContent = yamlText;
   yamlOutput.style.display = "block";
-
+  document.getElementById("copy-button").style.display = "inline-block";  
+  
   const blob = new Blob([yamlText], { type: "text/yaml" });
   const link = document.getElementById("download-link");
   link.href = URL.createObjectURL(blob);
