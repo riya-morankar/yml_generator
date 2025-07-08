@@ -9,52 +9,57 @@
     body {
       font-family: Arial, sans-serif;
       padding: 20px;
-      max-width: 600px;
+      max-width: 700px;
+      margin: auto;
     }
+
     .section {
       margin-bottom: 20px;
     }
+
+    .repo-list {
+      border: 1px solid #ccc;
+      padding: 10px;
+      max-height: 250px;
+      overflow-y: auto;
+      background-color: #f9f9f9;
+    }
+
     .repo-list label {
       display: block;
-      margin-left: 10px;
+      margin-bottom: 6px;
     }
+
     .yaml-box {
       white-space: pre-wrap;
       background: #f4f4f4;
       padding: 10px;
-      margin-top: 20px;
       border: 1px solid #ccc;
-    }
-    button {
-      margin-top: 10px;
-      padding: 6px 12px;
-      font-weight: bold;
+      margin-top: 20px;
     }
   </style>
 </head>
 <body>
-  <h2>Input Generator</h2>
-
-  <div class="section">
-    <label><strong>Start Date:</strong></label>
-    <input type="date" id="startDate">
-  </div>
-
-  <div class="section">
-    <label><strong>End Date:</strong></label>
-    <input type="date" id="endDate">
-  </div>
+  <h1>code-review document Input Generator</h1>
 
   <div class="section">
     <label><strong>Select Repositories:</strong></label>
-    <input type="checkbox" id="selectAll"> <strong>Select All</strong>
-    <div id="repoContainer" class="repo-list"></div>
+    <div id="repo-list" class="repo-list"></div>
   </div>
 
   <div class="section">
-    <button onclick="generateYAML()">Generate YAML</button>
-    <div id="yamlOutput" class="yaml-box" style="display:none;"></div>
-    <a id="downloadLink" style="display:none;" download="workflow_input.yaml"> Download workflow_input.yaml</a>
+    <label for="start-date"><strong>Start Date:</strong></label><br>
+    <input type="date" id="start-date">
   </div>
+
+  <div class="section">
+    <label for="end-date"><strong>End Date:</strong></label><br>
+    <input type="date" id="end-date">
+  </div>
+
+  <button onclick="generateYAML()">Generate YAML</button>
+
+  <div id="yaml-output" class="yaml-box" style="display:none;"></div>
+  <a id="download-link" style="display:none;" download="workflow_input.yaml">Download workflow_input.yaml</a>
 </body>
 </html>
