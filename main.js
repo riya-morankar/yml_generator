@@ -1,6 +1,15 @@
 function generateYAML() {
   const start = document.getElementById("start-date").value;
   const end = document.getElementById("end-date").value;
+  console.log("generateYAML button clicked");
+
+  const checkboxes = document.querySelectorAll(".repo-checkbox");
+  const selected = [];
+  checkboxes.forEach(cb => {
+    if (cb.checked && cb.value !== "select_all") {
+      selected.push(cb.value);
+    }
+  });
 
 if (selected.length === 0) {
     alert("Please select at least one repository.");
@@ -14,14 +23,6 @@ if (!start || !end) {
     alert("Start date cannot be after end date.");
     return;
   }
-
-  const checkboxes = document.querySelectorAll(".repo-checkbox");
-  const selected = [];
-  checkboxes.forEach(cb => {
-    if (cb.checked && cb.value !== "select_all") {
-      selected.push(cb.value);
-    }
-  });
 
   const yamlData = {
     repos: selected.join(","),
