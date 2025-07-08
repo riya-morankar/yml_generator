@@ -48,7 +48,7 @@ if (start < end) {
 function createRepoCheckboxes(repoMap) {
   const container = document.getElementById("repo-list");
 
-  // const selectAll = document.createElement("label");
+  const selectAll = document.createElement("label");
   selectAll.innerHTML = `<input type="checkbox" id="select-all" class="repo-checkbox" value="select_all"> <strong>Select All</strong>`;
   container.appendChild(selectAll);
 
