@@ -11,8 +11,8 @@ function generateYAML() {
     alert("Please select both start and end dates.");
     return;
   }
-
-if (start < end) {
+  
+  if (start > end) {
     alert("Please select valid dates.");
     return;
   }
@@ -20,8 +20,8 @@ if (start < end) {
   const checkboxes = document.querySelectorAll(".repo-checkbox");
   const selected = [];
   checkboxes.forEach(cb => {
-    if (cb.checked && cb.value !== "select_all") {
-      selected.push(cb.value);
+    if (cb.checked && cb.dataset.short !== "select_all") {
+      selected.push(cb.dataset.short);
     }
   });
 
@@ -33,12 +33,10 @@ if (start < end) {
 
   const yamlText = jsyaml.dump(yamlData);
 
-  // Display YAML
   const yamlOutput = document.getElementById("yaml-output");
   yamlOutput.textContent = yamlText;
   yamlOutput.style.display = "block";
 
-  // Download YAML
   const blob = new Blob([yamlText], { type: "text/yaml" });
   const link = document.getElementById("download-link");
   link.href = URL.createObjectURL(blob);
@@ -49,16 +47,15 @@ function createRepoCheckboxes(repoMap) {
   const container = document.getElementById("repo-list");
 
   const selectAll = document.createElement("label");
-  selectAll.innerHTML = `<input type="checkbox" id="select-all" class="repo-checkbox" value="select_all"> <strong>Select All</strong>`;
+  selectAll.innerHTML = `<input type="checkbox" id="select-all" class="repo-checkbox" data-short="select_all"> <strong>Select All</strong>`;
   container.appendChild(selectAll);
 
-  Object.keys(repoMap).forEach(repo => {
+  for (const [short, full] of Object.entries(repoMap)) {
     const label = document.createElement("label");
-    label.innerHTML = `<input type="checkbox" class="repo-checkbox" value="${repo}"> ${repo}`;
+    label.innerHTML = `<input type="checkbox" class="repo-checkbox" data-short="${short}" value="${full}"> ${full}`;
     container.appendChild(label);
-  });
+  }
 
-  // Add event listeners
   document.getElementById("select-all").addEventListener("change", (e) => {
     const all = document.querySelectorAll(".repo-checkbox");
     all.forEach(cb => {
@@ -69,13 +66,12 @@ function createRepoCheckboxes(repoMap) {
   container.addEventListener("change", () => {
     const checkboxes = document.querySelectorAll(".repo-checkbox");
     const selectAllBox = document.getElementById("select-all");
-    const otherBoxes = [...checkboxes].filter(cb => cb.value !== "select_all");
+    const otherBoxes = [...checkboxes].filter(cb => cb.dataset.short !== "select_all");
 
     const allChecked = otherBoxes.every(cb => cb.checked);
     selectAllBox.checked = allChecked;
   });
 }
-
 
 // Load YAML manifest
 fetch('manifest.yaml?cache=' + new Date().getTime())
