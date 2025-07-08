@@ -2,8 +2,18 @@ function generateYAML() {
   const start = document.getElementById("start-date").value;
   const end = document.getElementById("end-date").value;
 
+  if (selected.length === 0) {
+    alert("Please select at least one repository.");
+    return;
+  }
+  
   if (!start || !end) {
     alert("Please select both start and end dates.");
+    return;
+  }
+
+if (start < end) {
+    alert("Please select valid dates.");
     return;
   }
 
@@ -14,11 +24,6 @@ function generateYAML() {
       selected.push(cb.value);
     }
   });
-
-  if (selected.length === 0) {
-    alert("Please select at least one repository.");
-    return;
-  }
 
   const yamlData = {
     repos: selected.join(","),
@@ -43,7 +48,7 @@ function generateYAML() {
 function createRepoCheckboxes(repoMap) {
   const container = document.getElementById("repo-list");
 
-  const selectAll = document.createElement("label");
+  // const selectAll = document.createElement("label");
   selectAll.innerHTML = `<input type="checkbox" id="select-all" class="repo-checkbox" value="select_all"> <strong>Select All</strong>`;
   container.appendChild(selectAll);
 
