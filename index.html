@@ -5,7 +5,7 @@
   <title>GitHub PR Tracker Input</title>
   <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
   <script defer src="main.js"></script>
-  <style>
+<!--   <style>
     body {
       font-family: Arial;
       padding: 20px;
@@ -23,19 +23,54 @@
       margin-top: 20px;
       border: 1px solid #ccc;
     }
+  </style> -->
+    <style>
+    body { font-family: Arial, sans-serif; margin: 40px; }
+    h2 { color: #333; }
+    .section { margin-bottom: 20px; }
+    .repo-list { max-height: 200px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; }
+    .checkbox { display: block; margin: 5px 0; }
+    button { padding: 10px 20px; font-size: 16px; }
+    .error { color: red; font-weight: bold; }
+    .repo-list label {
+      display: block;
+    }
+    .yaml-box {
+      white-space: pre-wrap;
+      background: #f4f4f4;
+      padding: 10px;
+      margin-top: 20px;
+      border: 1px solid #ccc;
+    }
   </style>
 </head>
 <body>
   <h1>GitHub PR Tracker Input Generator</h1>
 
-  <label for="start-date">Start Date:</label>
+<!--   <label for="start-date">Start Date:</label>
   <input type="date" id="start-date"><br><br>
 
   <label for="end-date">End Date:</label>
   <input type="date" id="end-date"><br><br>
 
   <strong>Select Repositories:</strong>
-  <div id="repo-list" class="repo-list"></div>
+  <div id="repo-list" class="repo-list"></div> -->
+
+   <div class="section">
+    <label><strong>Select Repositories:</strong></label><br>
+    <input type="checkbox" id="selectAll"> <strong>Select All</strong>
+    <div id="repoContainer" class="repo-list"></div>
+  </div>
+
+  <div class="section">
+    <label><strong>Start Date:</strong></label><br>
+    <input type="date" id="startDate">
+  </div>
+
+  <div class="section">
+    <label><strong>End Date:</strong></label><br>
+    <input type="date" id="endDate">
+  </div>
 
   <br>
   <button onclick="generateYAML()">Generate YAML</button>
