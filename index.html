@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>GitHub PR Tracker Input Generator</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 40px; }
+    h2 { color: #333; }
+    .section { margin-bottom: 20px; }
+    .repo-list { max-height: 200px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; }
+    .checkbox { display: block; margin: 5px 0; }
+    button { padding: 10px 20px; font-size: 16px; }
+    .error { color: red; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h2>GitHub PR Tracker Input Generator</h2>
+
+  <div class="section">
+    <label><strong>Select Repositories:</strong></label><br>
+    <input type="checkbox" id="selectAll"> <strong>Select All</strong>
+    <div id="repoContainer" class="repo-list"></div>
+  </div>
+
+  <div class="section">
+    <label><strong>Start Date:</strong></label><br>
+    <input type="date" id="startDate">
+  </div>
+
+  <div class="section">
+    <label><strong>End Date:</strong></label><br>
+    <input type="date" id="endDate">
+  </div>
+
+  <button onclick="generateYAML()">Generate YAML</button>
+  <div id="errorMsg" class="error"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
